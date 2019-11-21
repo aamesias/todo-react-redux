@@ -1,13 +1,77 @@
+@import '~antd/dist/antd.css';
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background: #00c6ff;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #00c6ff, #0072ff);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #00c6ff, #0072ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: #373737;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+html, body {
+  height: 100%;
+  width: 575px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  margin: 10px 20px;
+  color: #ffffff;
+  font-size: 100px;
+}
+
+li {
+  list-style: none;
+  background: #ffffff;
+}
+
+input::placeholder {
+  color: #373737;
+  font-style: italic;
+}
+
+.todo-row {
+  width: 100%;
+  height: 100%;
+}
+
+.center {
+  text-align: center;
+}
+
+.container {
+  margin-bottom: 5px;
+  padding: 5px 2px
+}
+
+.todo-border {
+  border: 1px solid  #d9d9d9;
+  border-radius: 4px;
+  padding: 12px 24px;
+}
+
+.ant-menu-horizontal {
+  border-bottom: none;
+}
+
+.check-all-button {
+  width: 60px;
+}
+
+.delete-btn {
+  opacity:0.3;
+}
+
+.delete-btn:hover {
+  opacity: 1;
+}
+
+.white-background {
+  background: #ffffff;
+}
+
+.empty-list {
+  color:#363636;
+  text-align: center;
 }
