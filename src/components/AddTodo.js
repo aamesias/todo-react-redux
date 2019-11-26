@@ -24,7 +24,7 @@ class AddTodo extends React.Component {
     }
 
     handleAddTodo(e) {
-        if (e.keyCode === 13) {
+        if (e.key === "Enter") {
             this.props.addTodo(this.state.input);
             this.setState({
                 input: '',
@@ -34,15 +34,13 @@ class AddTodo extends React.Component {
 
     render() {
         return (
-            <div className='add-todo'>
-                <Input
-                    type='text'
-                    placeholder='What needs to be done?'
-                    value={this.state.input}
-                    onChange={this.updateInput}
-                    onKeyDown={this.handleAddTodo} // do redux stuff
-                />
-            </div>
+            <Input
+                type='text'
+                placeholder='What needs to be done?'
+                value={this.state.input}
+                onChange={this.updateInput}
+                onKeyDown={this.handleAddTodo} 
+            />
         )
     }
 }

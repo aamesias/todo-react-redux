@@ -1,98 +1,95 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { deleteTodo, toggleTodo } from '../actions/actionCreators'
-import { Icon, Checkbox, List, Input, Typography, Row, Col } from 'antd';
+import { deleteTodo, toggleTodo, setFilter } from '../actions/actionCreators';
+import TodoItem from './TodoItem'
+import {List} from 'antd';
 
-function Item({ item, toggleTodo, deleteTodo }) {
-    if(false) {
-        // edit todo
-        return (
-            <Input />
-        )
-    } else {
-        return (
-            <Row className='todo-row' type='flex' justify='center' align='bottom'>
-                <Col span={2}>
-                    <Checkbox
-                        checked={!item.isActive}
-                        onChange={ () => {toggleTodo(item.todoId)} }
-                    />
-                </Col>
-                <Col span={21}>
-                    <Typography.Text
-                        //onDoubleClick={ () => {console.log('Create action EDIT_TODO')} }
-                        style={{ textDecoration: item.isActive ? 'none' : 'line-through' }}
-                    >
-                        {item.text}
-                    </Typography.Text>
-                </Col>
-                <Col span={1}>
-                    <Icon className='delete-btn' type="delete" theme="twoTone" twoToneColor="#ff2f96"
-                        onClick={ () => {deleteTodo(item.todoId)} }
-                    />
-                </Col>
-            </Row>
-        )
+class TodoList extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            editTodoId: -1,
+        }
+
+        this.updateEditTodoId = this.updateEditTodoId.bind(this);
+    }
+
+    updateEditTodoId(todoId) {
+        this.setState({
+            editTodoId: todoId,
+        })
+    }
+
+    render() {
+        const { todos, filteredTodos, filter, toggleTodo, deleteTodo } = this.props;
+        let message = ''
+        if (filter === 'completed') {
+            message = 'No todos completed. 😢'
+        } else if (filter === 'active') {
+            message = 'All todos are done! 🥳'
+        }
+
+        if (todos.length === 0) {
+            return null;
+        }
+
+        if (filteredTodos.length === 0) {
+            return (
+                <div className='container todo-row'>
+                    <List bordered>
+                        <List.Item className='empty-list'>
+                            {message}
+                        </List.Item>
+                    </List>
+                </div>
+            )
+        } else {
+            return (
+                <div className='container todo-row'>
+                    <List bordered>
+                        {filteredTodos.map((todo) => (
+                            <List.Item key={todo.todoId}>
+                                <TodoItem
+                                    updateEditTodoId = {this.updateEditTodoId}
+                                    editTodoId = {this.state.editTodoId}
+                                    item={todo}
+                                    toggleTodo={toggleTodo}
+                                    deleteTodo={deleteTodo}
+                                    setFilter={setFilter}
+                                />
+                            </List.Item>
+                        ))}
+                    </List>
+                </div>
+            )
+        }
     }
 }
 
 
-function TodoList({ todos, filter, toggleTodo, deleteTodo }) {
-
-    // returns the correct filtered todos depending on the current filter
-    let filteredTodos = todos
-    let message = ''
+function visibleTodos(todos, filter) {
     if (filter === 'completed') {
-        filteredTodos = todos.filter((todo) => todo.isActive === false)
-        message = 'No todos completed. 😢'
+        return todos.filter((todo) => todo.isActive === false)
     } else if (filter === 'active') {
-        filteredTodos = todos.filter((todo) => todo.isActive === true)
-        message = 'All todos are done! 🥳'
-    }
-
-    if (todos.length === 0) {
-        return null;
-    } 
-
-    if(filteredTodos.length === 0) {
-        return (
-            <div className='container todo-row'>
-                <List bordered>
-                    <List.Item className='empty-list'>
-                        {message}
-                    </List.Item>
-                </List>
-            </div>
-        )
+        return todos.filter((todo) => todo.isActive === true)
     } else {
-        return (
-            <div className='container todo-row'>
-                <List bordered>
-                    {filteredTodos.map((todo) => (
-                        <List.Item key={todo.todoId}>
-                            <Item 
-                                item = {todo}
-                                toggleTodo = {toggleTodo}
-                                deleteTodo = {deleteTodo}
-                            />
-                        </List.Item>
-                    ))}
-                </List>
-            </div>
-        )
+        return todos
     }
 }
 
 function mapStateToProps(state) {
     return {
         todos: state.todos,
-        filter: state.filter,
+        filteredTodos: visibleTodos(state.todos, state.visibilityFilters),
+        filter: state.visibilityFilters,
     }
 }
 
 const mapDispatchToProps = {
     deleteTodo,
     toggleTodo,
+    setFilter,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

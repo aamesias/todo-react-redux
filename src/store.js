@@ -1,16 +1,7 @@
-import { createStore, compose } from 'redux';
+import { createStore } from 'redux';
 import rootReducer from './reducers/index'
 
-const initialState = {
-    todos: [],
-    filter: 'all',
-}
-
-const enhancers = compose(
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-);
-
-const store = createStore(rootReducer, initialState, enhancers);
+const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 if(module.hot) {
     module.hot.accept('./reducers', () => {

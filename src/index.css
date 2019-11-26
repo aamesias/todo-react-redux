@@ -55,8 +55,9 @@ input::placeholder {
   border-bottom: none;
 }
 
-.check-all-button {
+.toggle-all-button {
   width: 60px;
+  padding: 5px 12px;
 }
 
 .delete-btn {

@@ -20,3 +20,30 @@ export function toggleTodo(todoId) {
         todoId,
     }
 }
+
+export function editTodoText(todoId, newText) {
+    return {
+        type: 'EDIT_TODO_TEXT',
+        todoId,
+        newText,
+    }
+}
+
+export function setFilter(filter) {
+    return {
+        type: 'SET_FILTER',
+        filter,
+    }
+}
+
+export function clearCompleted() {
+    return {
+        type: 'CLEAR_COMPLETED',
+    }
+}
+
+export function toggleAll() {
+    return {
+        type: 'TOGGLE_ALL', 
+    }
+}

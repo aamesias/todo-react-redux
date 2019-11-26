@@ -1,14 +1,15 @@
 import React from 'react';
-import AddTodo from './AddTodo'
+import AppHeader from './AppHeader'
 import TodoList from './TodoList'
+import FilterFooter from './FilterFooter'
 
 export default class App extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <h1 className='center'>Todos</h1>
-                <AddTodo />
+                <AppHeader />
                 <TodoList />
+                <FilterFooter />
             </React.Fragment>
         )
     }
