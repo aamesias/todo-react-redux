@@ -1,6 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## React-Redux Todo
+## React-Redux Todo 
+[![Build Status]
 
 A simple React + Redux todo app. 
 https://anaasun.gitlab.io/react-redux-todo
