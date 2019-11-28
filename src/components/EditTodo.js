@@ -38,7 +38,7 @@ class EditTodo extends React.Component {
                 <Col span={2}></Col>
                 <Col span={22}>
                 <Input size='small'
-                        onBlur={() => this.handleNewText}
+                        onBlur={() => this.handleNewText()}
                         onKeyDown={(e) => { 
                             if (e.key === 'Enter') {
                                 this.handleNewText();
