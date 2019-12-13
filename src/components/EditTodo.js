@@ -55,15 +55,15 @@ class EditTodo extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
+/*function mapStateToProps(state) {
     return {
         todos: state.todos,
     }
-}
+}*/
 
 const mapDispatchToProps = {
     editTodoText,
     deleteTodo,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditTodo);
+export default connect(null, mapDispatchToProps)(EditTodo);

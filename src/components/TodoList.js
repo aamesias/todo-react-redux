@@ -22,11 +22,11 @@ class TodoList extends React.Component {
     }
 
     render() {
-        const { todos, filteredTodos, filter, toggleTodo, deleteTodo } = this.props;
+        const { todos, filteredTodos, pathname, toggleTodo, deleteTodo } = this.props;
         let message = ''
-        if (filter === 'completed') {
+        if (pathname === 'completed') {
             message = 'No todos completed. 😢'
-        } else if (filter === 'active') {
+        } else if (pathname === 'active') {
             message = 'All todos are done! 🥳'
         }
 
@@ -67,11 +67,10 @@ class TodoList extends React.Component {
     }
 }
 
-
-function visibleTodos(todos, filter) {
-    if (filter === 'completed') {
+function visibleTodos(todos, pathname) {
+    if (pathname === 'completed') {
         return todos.filter((todo) => todo.isActive === false)
-    } else if (filter === 'active') {
+    } else if (pathname === 'active') {
         return todos.filter((todo) => todo.isActive === true)
     } else {
         return todos
@@ -81,8 +80,8 @@ function visibleTodos(todos, filter) {
 function mapStateToProps(state) {
     return {
         todos: state.todos,
-        filteredTodos: visibleTodos(state.todos, state.visibilityFilters),
-        filter: state.visibilityFilters,
+        filteredTodos: visibleTodos(state.todos, state.router.location.pathname.slice(1)),
+        pathname: state.router.location.pathname.slice(1)
     }
 }
 

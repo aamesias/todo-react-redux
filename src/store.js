@@ -1,13 +1,20 @@
-import { createStore } from 'redux';
+import { applyMiddleware, compose, createStore } from 'redux'
 import rootReducer from './reducers/index'
+import {createHashHistory} from 'history'
+import { routerMiddleware} from 'connected-react-router'
 
-const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+export const history = createHashHistory()
 
-if(module.hot) {
-    module.hot.accept('./reducers', () => {
-        const nextRootReducer = require('./reducers/index').default;
-        store.replaceReducer(nextRootReducer);
-    })
+export default function configureStore(preloadedState) {
+    const store = createStore(
+        rootReducer(history),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+        preloadedState,
+        compose(
+            applyMiddleware(
+                routerMiddleware(history),
+            ),
+        ),
+    )
+    return store
 }
-
-export default store;

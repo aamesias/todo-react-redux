@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { Button, Menu, Row, Col, Typography } from 'antd'
 import { setFilter, clearCompleted } from '../actions/actionCreators'
@@ -12,17 +13,18 @@ function NumOfItemsLeft({ todos }) {
     }
 }
 
-function Filters({ setFilter }) {
+function Filters({ setFilter, pathname }) {
+    console.log(pathname)
     return (
-        <Menu mode="horizontal" defaultSelectedKeys={['all']}>
-            <Menu.Item key='all' onClick={() => { setFilter('all') }}>
-                All
+        <Menu mode="horizontal" defaultSelectedKeys={['/']} selectedKeys={[pathname]}>
+            <Menu.Item key='/' onClick={() => { setFilter('all') }}>
+                <Link to='/'>All</Link>
             </Menu.Item>
-            <Menu.Item key='active' onClick={() => { setFilter('active') }}>
-                Active
+            <Menu.Item key='/active' onClick={() => { setFilter('active') }}>
+                <Link to='/active'>Active</Link>
             </Menu.Item>
-            <Menu.Item key='completed' onClick={() => { setFilter('completed') }}>
-                Completed
+            <Menu.Item key='/completed' onClick={() => { setFilter('completed') }}>
+                <Link to='/completed'>Completed</Link>
             </Menu.Item>
         </Menu>
     )
@@ -35,7 +37,7 @@ function ClearCompleted({ todos, clearCompleted }) {
             <Button
                 onClick={() => { clearCompleted() }}
             >
-                Clear completed
+                <Link to='/'>Clear Completed</Link>
             </Button>
         )
     }
@@ -51,7 +53,6 @@ class FilterFooter extends React.Component {
             return null;
         }
 
-
         return (
             <div className='container todo-border todo-row margin white-background'>
                 <Row type='flex' align='middle'>
@@ -63,6 +64,7 @@ class FilterFooter extends React.Component {
                     <Col span={13}>
                         <Filters
                             setFilter={this.props.setFilter}
+                            pathname={this.props.pathname}
                         />
                     </Col>
                     <Col span={6}>
@@ -81,13 +83,13 @@ class FilterFooter extends React.Component {
 function mapStateToProps(state) {
     return {
         todos: state.todos,
-        filter: state.filter,
+        pathname: state.router.location.pathname,
     }
 }
 
 const mapDispatchToProps = {
-        setFilter,
-        clearCompleted,
+    setFilter,
+    clearCompleted,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterFooter);

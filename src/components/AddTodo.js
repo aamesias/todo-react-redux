@@ -45,14 +45,15 @@ class AddTodo extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
+// state slice not needed, pass null in connect
+/*function mapStateToProps(state) {
     return {
         todos: state.todos,
     }
-}
+}*/
 
 const mapDispatchToProps = {
     addTodo,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddTodo);
+export default connect(null, mapDispatchToProps)(AddTodo);
