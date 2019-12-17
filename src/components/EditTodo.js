@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Input} from 'antd';
 import { editTodoText, deleteTodo } from '../actions/actionCreators'
+import PropTypes from 'prop-types'
 
 class EditTodo extends React.Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class EditTodo extends React.Component {
     }
 
     handleNewText() {
-        if(this.state.todoText === '') {
+        if(!this.state.todoText.trim()) {
             this.props.deleteTodo(this.props.todo.todoId);
         } else {
             this.props.editTodoText(this.props.todo.todoId, this.state.todoText);
@@ -53,6 +54,13 @@ class EditTodo extends React.Component {
             </Row>
         )
     }
+}
+
+EditTodo.propTypes = {
+    todo: PropTypes.object.isRequired,
+    updateEditTodoId: PropTypes.func.isRequired,
+    editTodoText: PropTypes.func.isRequired,
+    deleteTodo: PropTypes.func.isRequired,
 }
 
 /*function mapStateToProps(state) {

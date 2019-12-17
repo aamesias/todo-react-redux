@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Input } from 'antd';
 import { addTodo } from '../actions/actionCreators'
+import PropTypes from 'prop-types'
 
 class AddTodo extends React.Component {
     constructor(props) {
@@ -43,6 +44,10 @@ class AddTodo extends React.Component {
             />
         )
     }
+}
+
+AddTodo.propTypes = {
+    addTodo: PropTypes.func.isRequired,
 }
 
 // state slice not needed, pass null in connect

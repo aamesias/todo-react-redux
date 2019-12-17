@@ -1,7 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import { toggleAll } from '../actions/actionCreators'
-import { Button, Checkbox } from 'antd';
+import { Button, Checkbox } from 'antd'
+import PropTypes from 'prop-types'
 
 function ToggleAllButton({ todos, toggleAll }) {
     if (todos.length !== 0) {
@@ -17,6 +18,11 @@ function ToggleAllButton({ todos, toggleAll }) {
     else {
         return null;
     }
+}
+
+ToggleAllButton.propTypes = {
+    todos: PropTypes.array.isRequired,
+    toggleAll: PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state) {

@@ -1,8 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { deleteTodo, toggleTodo, setFilter } from '../actions/actionCreators';
+import React from 'react'
+import { connect } from 'react-redux'
+import { deleteTodo, toggleTodo, setFilter } from '../actions/actionCreators'
 import TodoItem from './TodoItem'
-import {List} from 'antd';
+import {List} from 'antd'
+import PropTypes from 'prop-types'
 
 class TodoList extends React.Component {
     constructor(props) {
@@ -65,6 +66,14 @@ class TodoList extends React.Component {
             )
         }
     }
+}
+
+TodoList.propTypes = { 
+    todos: PropTypes.array.isRequired, 
+    filteredTodos: PropTypes.array.isRequired, 
+    pathname: PropTypes.string.isRequired, 
+    toggleTodo: PropTypes.func.isRequired, 
+    deleteTodo: PropTypes.func.isRequired,
 }
 
 function visibleTodos(todos, pathname) {

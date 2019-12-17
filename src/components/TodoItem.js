@@ -1,6 +1,7 @@
-import React from 'react';
+import React from 'react'
 import EditTodo from './EditTodo'
-import { Icon, Checkbox, Typography, Row, Col } from 'antd';
+import { Icon, Checkbox, Typography, Row, Col } from 'antd'
+import PropTypes from 'prop-types'
 
 export default function TodoItem({ item, toggleTodo, deleteTodo, updateEditTodoId, editTodoId }) {
     if(editTodoId === item.todoId) {
@@ -36,4 +37,12 @@ export default function TodoItem({ item, toggleTodo, deleteTodo, updateEditTodoI
             </Row>
         )
     }
+}
+
+TodoItem.propTypes = {
+    item: PropTypes.object.isRequired,
+    updateEditTodoId: PropTypes.func.isRequired,
+    toggleTodo: PropTypes.func.isRequired,
+    deleteTodo: PropTypes.func.isRequired,
+    editTodoId: PropTypes.number.isRequired, 
 }
