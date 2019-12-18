@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { deleteTodo, toggleTodo, setFilter } from '../actions/actionCreators'
 import TodoItem from './TodoItem'
-import {List} from 'antd'
+import { List } from 'antd'
 import PropTypes from 'prop-types'
 
 class TodoList extends React.Component {
@@ -23,11 +23,15 @@ class TodoList extends React.Component {
     }
 
     render() {
-        const { todos, filteredTodos, pathname, toggleTodo, deleteTodo } = this.props;
+        const { todos, filter, filteredTodos, toggleTodo, deleteTodo, match } = this.props;
+
+
+        console.log("url: ", match)
+
         let message = ''
-        if (pathname === 'completed') {
+        if (filter === 'completed') {
             message = 'No todos completed. 😢'
-        } else if (pathname === 'active') {
+        } else if (filter === 'active') {
             message = 'All todos are done! 🥳'
         }
 
@@ -52,8 +56,8 @@ class TodoList extends React.Component {
                         {filteredTodos.map((todo) => (
                             <List.Item key={todo.todoId}>
                                 <TodoItem
-                                    updateEditTodoId = {this.updateEditTodoId}
-                                    editTodoId = {this.state.editTodoId}
+                                    updateEditTodoId={this.updateEditTodoId}
+                                    editTodoId={this.state.editTodoId}
                                     item={todo}
                                     toggleTodo={toggleTodo}
                                     deleteTodo={deleteTodo}
@@ -68,29 +72,31 @@ class TodoList extends React.Component {
     }
 }
 
-TodoList.propTypes = { 
-    todos: PropTypes.array.isRequired, 
-    filteredTodos: PropTypes.array.isRequired, 
-    pathname: PropTypes.string.isRequired, 
-    toggleTodo: PropTypes.func.isRequired, 
+TodoList.propTypes = {
+    todos: PropTypes.array.isRequired,
+    filteredTodos: PropTypes.array.isRequired,
+    // pathname: PropTypes.string.isRequired, 
+    toggleTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
 }
 
-function visibleTodos(todos, pathname) {
-    if (pathname === 'completed') {
+function visibleTodos(todos, filter) {
+    if (filter === 'completed') {
         return todos.filter((todo) => todo.isActive === false)
-    } else if (pathname === 'active') {
+    } else if (filter === 'active') {
         return todos.filter((todo) => todo.isActive === true)
     } else {
         return todos
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, myProps) {
+    const { filter } = myProps.match.params
     return {
         todos: state.todos,
-        filteredTodos: visibleTodos(state.todos, state.router.location.pathname.slice(1)),
-        pathname: state.router.location.pathname.slice(1)
+        filteredTodos: visibleTodos(state.todos, filter),
+        filter: filter,
+        // pathname: state.router.location.pathname.slice(1)
     }
 }
 

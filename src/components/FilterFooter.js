@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { Button, Menu, Row, Col, Typography } from 'antd'
-import { /*setFilter,*/ clearCompleted } from '../actions/actionCreators'
+import { setFilter, clearCompleted } from '../actions/actionCreators'
 import PropTypes from 'prop-types'
 
 function NumOfItemsLeft({ todos }) {
@@ -18,16 +18,16 @@ NumOfItemsLeft.propTypes = {
     todos: PropTypes.array.isRequired,
 }
 
-function Filters({ /*setFilter,*/ pathname }) {
+function Filters({ setFilter, filter }) {
     return (
-        <Menu mode="horizontal" defaultSelectedKeys={['/']} selectedKeys={[pathname]}>
-            <Menu.Item key='/' /*onClick={() => { setFilter('all') }}*/>
-                <Link to='/'>All</Link>
+        <Menu mode="horizontal" defaultSelectedKeys={['/']} selectedKeys={[filter]}>
+            <Menu.Item key='all' onClick={() => { setFilter('all') }}>
+                <Link to='/all'>All</Link>
             </Menu.Item>
-            <Menu.Item key='/active' /*</Menu>onClick={() => { setFilter('active') }}*/>
+            <Menu.Item key='active' onClick={() => { setFilter('active') }}>
                 <Link to='/active'>Active</Link>
             </Menu.Item>
-            <Menu.Item key='/completed' /*onClick={() => { setFilter('completed') }}*/>
+            <Menu.Item key='completed' onClick={() => { setFilter('completed') }}>
                 <Link to='/completed'>Completed</Link>
             </Menu.Item>
         </Menu>
@@ -35,7 +35,8 @@ function Filters({ /*setFilter,*/ pathname }) {
 }
 
 Filters.propTypes = {
-    pathname: PropTypes.string.isRequired,
+    setFilter: PropTypes.func.isRequired,
+    // pathname: PropTypes.string.isRequired,
 }
 
 function ClearCompleted({ todos, clearCompleted }) {
@@ -43,7 +44,7 @@ function ClearCompleted({ todos, clearCompleted }) {
     if (todosCompleted !== 0) {
         return (
             <Button onClick={() => { clearCompleted() }} >
-                <Link to='/'>Clear Completed</Link>
+                <Link to='/all'>Clear Completed</Link>
             </Button>
         )
     }
@@ -60,6 +61,8 @@ ClearCompleted.propTypes = {
 class FilterFooter extends React.Component {
 
     render() {
+        const { filter } = this.props.match.params
+
         if (this.props.todos.length === 0) {
             return null;
         }
@@ -74,8 +77,9 @@ class FilterFooter extends React.Component {
                     </Col>
                     <Col span={13}>
                         <Filters
-                            //setFilter={this.props.setFilter}
-                            pathname={this.props.pathname}
+                            setFilter={this.props.setFilter}
+                            filter={filter}
+                        //pathname={this.props.pathname}
                         />
                     </Col>
                     <Col span={6}>
@@ -92,18 +96,18 @@ class FilterFooter extends React.Component {
 
 FilterFooter.propTypes = {
     todos: PropTypes.array.isRequired,
-    pathname: PropTypes.string.isRequired,
+    //pathname: PropTypes.string.isRequired,
 }
 
 function mapStateToProps(state) {
     return {
         todos: state.todos,
-        pathname: state.router.location.pathname,
+        // pathname: state.router.location.pathname,
     }
 }
 
 const mapDispatchToProps = {
-    //setFilter,
+    setFilter,
     clearCompleted,
 }
 

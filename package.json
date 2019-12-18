@@ -35,5 +35,8 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://anaasun.gitlab.io/react-redux-todo"
+  "homepage": "https://anaasun.gitlab.io/react-redux-todo",
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  }
 }
