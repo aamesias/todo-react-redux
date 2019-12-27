@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 import AddTodo from './AddTodo'
 import ToggleAllButton from './ToggleAllButton'
-import { Row, Col} from 'antd'
+import { Row, Col } from 'antd'
 
 
-export default function AppHeader() {
+const AppHeader = () => {
     return (
         <React.Fragment>
             <h1 className='center'>Todos</h1>
@@ -21,3 +21,5 @@ export default function AppHeader() {
         </React.Fragment>
     )
 }
+
+export default AppHeader

@@ -3,12 +3,12 @@ import EditTodo from './EditTodo'
 import { Icon, Checkbox, Typography, Row, Col } from 'antd'
 import PropTypes from 'prop-types'
 
-export default function TodoItem({ item, toggleTodo, deleteTodo, updateEditTodoId, editTodoId }) {
-    if(editTodoId === item.todoId) {
+const TodoItem = ({ item, toggleTodo, deleteTodo, updateEditTodoId, editTodoId }) => {
+    if (editTodoId === item.todoId) {
         return (
-            <EditTodo 
-                todo = {item}
-                updateEditTodoId = {updateEditTodoId}
+            <EditTodo
+                todo={item}
+                updateEditTodoId={updateEditTodoId}
             />
         )
     } else {
@@ -44,5 +44,7 @@ TodoItem.propTypes = {
     updateEditTodoId: PropTypes.func.isRequired,
     toggleTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
-    editTodoId: PropTypes.number.isRequired, 
+    editTodoId: PropTypes.number.isRequired,
 }
+
+export default TodoItem

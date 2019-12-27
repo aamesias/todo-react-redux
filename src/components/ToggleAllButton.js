@@ -4,7 +4,7 @@ import { toggleAll } from '../actions/actionCreators'
 import { Button, Checkbox } from 'antd'
 import PropTypes from 'prop-types'
 
-function ToggleAllButton({ todos, toggleAll }) {
+const ToggleAllButton = ({ todos, toggleAll }) => {
     if (todos.length !== 0) {
         return (
             <Button className='toggle-all-button'>
@@ -25,7 +25,7 @@ ToggleAllButton.propTypes = {
     toggleAll: PropTypes.func.isRequired,
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     return {
         todos: state.todos,
     }

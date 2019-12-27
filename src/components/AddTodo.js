@@ -4,46 +4,27 @@ import { Input } from 'antd';
 import { addTodo } from '../actions/actionCreators'
 import PropTypes from 'prop-types'
 
-class AddTodo extends React.Component {
-    constructor(props) {
-        super(props);
+const AddTodo = ({ addTodo }) => {
+    const [input, setInput] = React.useState('')
 
-        this.state = {
-            input: '',
-        }
+    const updateInput = (e) => { setInput(e.target.value) }
 
-        this.updateInput = this.updateInput.bind(this);
-        this.handleAddTodo = this.handleAddTodo.bind(this);
-    }
-
-    updateInput(e) {
-        const value = e.target.value;
-
-        this.setState({
-            input: value,
-        })
-    }
-
-    handleAddTodo(e) {
-        if (e.key === "Enter") {
-            this.props.addTodo(this.state.input);
-            this.setState({
-                input: '',
-            })
+    const handleAddTodo = (e) => {
+        if (e.key === 'Enter') {
+            addTodo(input)
+            setInput('')
         }
     }
 
-    render() {
-        return (
-            <Input
-                type='text'
-                placeholder='What needs to be done?'
-                value={this.state.input}
-                onChange={this.updateInput}
-                onKeyDown={this.handleAddTodo} 
-            />
-        )
-    }
+    return (
+        <Input
+            type='text'
+            placeholder='What needs to be done?'
+            value={input}
+            onChange={updateInput}
+            onKeyDown={handleAddTodo}
+        />
+    )
 }
 
 AddTodo.propTypes = {

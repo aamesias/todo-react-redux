@@ -80,7 +80,7 @@ TodoList.propTypes = {
     deleteTodo: PropTypes.func.isRequired,
 }
 
-function visibleTodos(todos, filter) {
+const visibleTodos = (todos, filter) => {
     if (filter === 'completed') {
         return todos.filter((todo) => todo.isActive === false)
     } else if (filter === 'active') {
@@ -90,7 +90,7 @@ function visibleTodos(todos, filter) {
     }
 }
 
-function mapStateToProps(state, myProps) {
+const mapStateToProps = (state, myProps) => {
     const { filter } = myProps.match.params
     return {
         todos: state.todos,

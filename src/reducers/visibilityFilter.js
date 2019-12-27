@@ -1,10 +1,10 @@
-function visibilityFilter(state = 'all', action) {
-    switch(action.type) {
+const visibilityFilter = (state = 'all', action) => {
+    switch (action.type) {
         case 'SET_FILTER':
-            return action.filter;
+            return action.filter
         default:
-            return state;
+            return state
     }
 }
 
-export default visibilityFilter;
+export default visibilityFilter
