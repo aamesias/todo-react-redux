@@ -9,7 +9,7 @@ const ToggleAllButton = ({ todos, toggleAll }) => {
         return (
             <Button className='toggle-all-button'>
                 <Checkbox
-                    checked={todos.filter((todo) => todo.isActive === false).length === todos.length}
+                    checked={todos.filter(todo => !todo.isActive).length === todos.length}
                     onClick={() => toggleAll()}
                 />
             </Button>
@@ -25,7 +25,7 @@ ToggleAllButton.propTypes = {
     toggleAll: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = (state) => ({ todos: state.todos })
+const mapStateToProps = state => ({ todos: state.todos })
 
 const mapDispatchToProps = { toggleAll }
 

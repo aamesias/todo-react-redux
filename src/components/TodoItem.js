@@ -17,11 +17,11 @@ const TodoItem = ({ item, toggleTodo, deleteTodo, updateEditTodoId, editTodoId }
                 <Col span={2}>
                     <Checkbox
                         checked={!item.isActive}
-                        onChange={() => { toggleTodo(item.todoId) }}
+                        onChange={() => toggleTodo(item.todoId)}
                     />
                 </Col>
                 <Col span={21}
-                    onDoubleClick={() => { updateEditTodoId(item.todoId) }}
+                    onDoubleClick={() => updateEditTodoId(item.todoId)}
                 >
                     <Typography.Text
                         style={{ textDecoration: item.isActive ? 'none' : 'line-through' }}
@@ -31,7 +31,7 @@ const TodoItem = ({ item, toggleTodo, deleteTodo, updateEditTodoId, editTodoId }
                 </Col>
                 <Col span={1}>
                     <Icon className='delete-btn' type="delete" theme="twoTone" twoToneColor="#ff2f96"
-                        onClick={() => { deleteTodo(item.todoId) }}
+                        onClick={() => deleteTodo(item.todoId)}
                     />
                 </Col>
             </Row>

@@ -8,9 +8,7 @@ import PropTypes from 'prop-types'
 const TodoList = ({ todos, filter, filteredTodos, toggleTodo, deleteTodo }) => {
     const [editTodoId, setEditTodoId] = React.useState('')
 
-    const updateEditTodoId = (todoId) => {
-        setEditTodoId(todoId)
-    }
+    const updateEditTodoId = todoId => setEditTodoId(todoId)
 
     let message = ''
     if (filter === 'completed') {
@@ -19,9 +17,7 @@ const TodoList = ({ todos, filter, filteredTodos, toggleTodo, deleteTodo }) => {
         message = 'All todos are done! 🥳'
     }
 
-    if (todos.length === 0) {
-        return null;
-    }
+    if (todos.length === 0) return null
 
     if (filteredTodos.length === 0) {
         return (
@@ -58,16 +54,15 @@ const TodoList = ({ todos, filter, filteredTodos, toggleTodo, deleteTodo }) => {
 TodoList.propTypes = {
     todos: PropTypes.array.isRequired,
     filteredTodos: PropTypes.array.isRequired,
-    // pathname: PropTypes.string.isRequired, 
     toggleTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
 }
 
 const visibleTodos = (todos, filter) => {
     if (filter === 'completed') {
-        return todos.filter((todo) => todo.isActive === false)
+        return todos.filter(todo => !todo.isActive)
     } else if (filter === 'active') {
-        return todos.filter((todo) => todo.isActive === true)
+        return todos.filter(todo => todo.isActive)
     } else {
         return todos
     }
@@ -79,7 +74,6 @@ const mapStateToProps = (state, myProps) => {
         todos: state.todos,
         filteredTodos: visibleTodos(state.todos, filter),
         filter: filter,
-        // pathname: state.router.location.pathname.slice(1)
     }
 }
 

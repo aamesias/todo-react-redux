@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 const ClearCompleted = ({ numOfTodosCompleted, clearCompleted }) => {
     if (numOfTodosCompleted !== 0) {
         return (
-            <Button onClick={() => { clearCompleted() }} >
+            <Button onClick={() => clearCompleted()} >
                 <Link to='/all'>Clear Completed</Link>
             </Button>
         )
@@ -23,7 +23,7 @@ ClearCompleted.propTypes = {
     clearCompleted: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = (state) => ({ numOfTodosCompleted: state.todos.filter(todo => !todo.isActive).length })
+const mapStateToProps = state => ({ numOfTodosCompleted: state.todos.filter(todo => !todo.isActive).length })
 
 const mapDispatchToProps = { clearCompleted }
 

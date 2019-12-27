@@ -35,6 +35,6 @@ FilterFooter.propTypes = {
     numOfAllTodos: PropTypes.number.isRequired
 }
 
-const mapStateToProps = (state) => ({ numOfAllTodos: state.todos.length })
+const mapStateToProps = state => ({ numOfAllTodos: state.todos.length })
 
 export default connect(mapStateToProps)(FilterFooter)

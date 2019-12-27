@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 const EditTodo = ({ todo, deleteTodo, editTodoText, updateEditTodoId }) => {
     const [todoText, setTodoText] = React.useState(todo.text)
 
-    const updateInput = (e) => { setTodoText(e.target.value) }
+    const updateInput = e => setTodoText(e.target.value)
 
     const handleNewText = () => {
         (!todoText.trim()) ? deleteTodo(todo.todoId) : editTodoText(todo.todoId, todoText)
@@ -20,11 +20,7 @@ const EditTodo = ({ todo, deleteTodo, editTodoText, updateEditTodoId }) => {
             <Col span={22}>
                 <Input size='small'
                     onBlur={() => handleNewText()}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            handleNewText();
-                        }
-                    }}
+                    onKeyDown={e => { if (e.key === 'Enter') handleNewText() }}
                     type='text'
                     autoFocus='autofocus'
                     value={todoText}
@@ -41,12 +37,6 @@ EditTodo.propTypes = {
     editTodoText: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
 }
-
-/*function mapStateToProps(state) {
-    return {
-        todos: state.todos,
-    }
-}*/
 
 const mapDispatchToProps = {
     editTodoText,

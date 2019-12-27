@@ -8,39 +8,27 @@ function todos(state = [], action) {
                     text: action.todo,
                     isActive: true,
                 }
-            ];
+            ]
         case 'DELETE_TODO':
             return state.filter(todo => todo.todoId !== action.todoId);
         case 'TOGGLE_TODO':
-            return state.map(todo => {
-                if (todo.todoId === action.todoId) {
-                    return { ...todo, isActive: !todo.isActive };
-                } else {
-                    return todo;
-                }
-            })
+            return state.map(todo => (
+                todo.todoId === action.todoId ? { ...todo, isActive: !todo.isActive } : todo
+            ))
         case 'EDIT_TODO_TEXT':
-            return state.map(todo => {
-                if (todo.todoId === action.todoId) {
-                    return { ...todo, text: action.newText, };
-                } else {
-                    return todo;
-                }
-            })
+            return state.map(todo => (
+                todo.todoId === action.todoId ? { ...todo, text: action.newText } : todo
+            ))
         case 'CLEAR_COMPLETED':
             return state.filter(todo => todo.isActive);
         case 'TOGGLE_ALL':
-            const isAllCompleted = (state.filter((todo) => todo.isActive)).length;
-            return state.map(todo => {
-                if (todo.isActive !== isAllCompleted) {
-                    return { ...todo, isActive: !isAllCompleted }
-                } else {
-                    return todo
-                }
-            });
+            const isAllCompleted = (state.filter(todo => todo.isActive)).length;
+            return state.map(todo => (
+                todo.isActive !== isAllCompleted ? { ...todo, isActive: !isAllCompleted } : todo
+            ))
         default:
-            return state;
+            return state
     }
 }
 
-export default todos;
+export default todos

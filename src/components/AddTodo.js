@@ -7,9 +7,9 @@ import PropTypes from 'prop-types'
 const AddTodo = ({ addTodo }) => {
     const [input, setInput] = React.useState('')
 
-    const updateInput = (e) => { setInput(e.target.value) }
+    const updateInput = e => setInput(e.target.value)
 
-    const handleAddTodo = (e) => {
+    const handleAddTodo = e => {
         if (e.key === 'Enter') {
             addTodo(input)
             setInput('')
@@ -27,19 +27,8 @@ const AddTodo = ({ addTodo }) => {
     )
 }
 
-AddTodo.propTypes = {
-    addTodo: PropTypes.func.isRequired,
-}
+AddTodo.propTypes = { addTodo: PropTypes.func.isRequired }
 
-// state slice not needed, pass null in connect
-/*function mapStateToProps(state) {
-    return {
-        todos: state.todos,
-    }
-}*/
-
-const mapDispatchToProps = {
-    addTodo,
-}
+const mapDispatchToProps = { addTodo }
 
 export default connect(null, mapDispatchToProps)(AddTodo);
