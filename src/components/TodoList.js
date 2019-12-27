@@ -6,7 +6,7 @@ import { List } from 'antd'
 import PropTypes from 'prop-types'
 
 const TodoList = ({ todos, filter, filteredTodos, toggleTodo, deleteTodo }) => {
-    const [editTodoId, setEditTodoId] = React.useState(-1)
+    const [editTodoId, setEditTodoId] = React.useState('')
 
     const updateEditTodoId = (todoId) => {
         setEditTodoId(todoId)

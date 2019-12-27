@@ -25,14 +25,8 @@ ToggleAllButton.propTypes = {
     toggleAll: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = (state) => {
-    return {
-        todos: state.todos,
-    }
-}
+const mapStateToProps = (state) => ({ todos: state.todos })
 
-const mapDispatchToProps = {
-    toggleAll,
-}
+const mapDispatchToProps = { toggleAll }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToggleAllButton);

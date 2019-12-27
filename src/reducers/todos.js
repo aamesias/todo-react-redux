@@ -10,29 +10,33 @@ function todos(state = [], action) {
                 }
             ];
         case 'DELETE_TODO':
-            return state.filter((todo) => todo.todoId !== action.todoId);
+            return state.filter(todo => todo.todoId !== action.todoId);
         case 'TOGGLE_TODO':
-            return state.map((todo) => {
-                if(todo.todoId === action.todoId) {
-                    return {...todo, isActive: !todo.isActive};
+            return state.map(todo => {
+                if (todo.todoId === action.todoId) {
+                    return { ...todo, isActive: !todo.isActive };
                 } else {
                     return todo;
                 }
             })
         case 'EDIT_TODO_TEXT':
-            return state.map((todo) => {
-                if(todo.todoId === action.todoId) {
-                    return { ...todo, text: action.newText,};
+            return state.map(todo => {
+                if (todo.todoId === action.todoId) {
+                    return { ...todo, text: action.newText, };
                 } else {
                     return todo;
                 }
             })
         case 'CLEAR_COMPLETED':
-            return state.filter((todo) => todo.isActive === true);
-        case 'TOGGLE_ALL': 
-            const isAllCompleted = (state.filter((todo) => todo.isActive === true)).length; 
-            return state.map((todo) => {
-                return {...todo, isActive: !isAllCompleted}
+            return state.filter(todo => todo.isActive);
+        case 'TOGGLE_ALL':
+            const isAllCompleted = (state.filter((todo) => todo.isActive)).length;
+            return state.map(todo => {
+                if (todo.isActive !== isAllCompleted) {
+                    return { ...todo, isActive: !isAllCompleted }
+                } else {
+                    return todo
+                }
             });
         default:
             return state;

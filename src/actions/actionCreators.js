@@ -1,8 +1,9 @@
-let nextTodoId = 0;
+// let nextTodoId = 0;
+const uuid = require("uuid/v4")
 export function addTodo(todo) {
     return {
-        type: 'ADD_TODO', 
-        todoId: nextTodoId++,
+        type: 'ADD_TODO',
+        todoId: uuid(), //nextTodoId++,
         todo,
     }
 }
@@ -44,6 +45,6 @@ export function clearCompleted() {
 
 export function toggleAll() {
     return {
-        type: 'TOGGLE_ALL', 
+        type: 'TOGGLE_ALL',
     }
 }

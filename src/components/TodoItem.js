@@ -44,7 +44,7 @@ TodoItem.propTypes = {
     updateEditTodoId: PropTypes.func.isRequired,
     toggleTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
-    editTodoId: PropTypes.number.isRequired,
+    editTodoId: PropTypes.string.isRequired,
 }
 
 export default TodoItem

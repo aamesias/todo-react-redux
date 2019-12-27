@@ -11,7 +11,7 @@ const EditTodo = ({ todo, deleteTodo, editTodoText, updateEditTodoId }) => {
 
     const handleNewText = () => {
         (!todoText.trim()) ? deleteTodo(todo.todoId) : editTodoText(todo.todoId, todoText)
-        updateEditTodoId(-1)
+        updateEditTodoId('')
     }
 
     return (
@@ -33,7 +33,6 @@ const EditTodo = ({ todo, deleteTodo, editTodoText, updateEditTodoId }) => {
             </Col>
         </Row>
     )
-
 }
 
 EditTodo.propTypes = {

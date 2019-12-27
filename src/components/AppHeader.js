@@ -3,7 +3,6 @@ import AddTodo from './AddTodo'
 import ToggleAllButton from './ToggleAllButton'
 import { Row, Col } from 'antd'
 
-
 const AppHeader = () => {
     return (
         <React.Fragment>
