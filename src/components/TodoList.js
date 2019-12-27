@@ -5,70 +5,53 @@ import TodoItem from './TodoItem'
 import { List } from 'antd'
 import PropTypes from 'prop-types'
 
-class TodoList extends React.Component {
-    constructor(props) {
-        super(props);
+const TodoList = ({ todos, filter, filteredTodos, toggleTodo, deleteTodo }) => {
+    const [editTodoId, setEditTodoId] = React.useState(-1)
 
-        this.state = {
-            editTodoId: -1,
-        }
-
-        this.updateEditTodoId = this.updateEditTodoId.bind(this);
+    const updateEditTodoId = (todoId) => {
+        setEditTodoId(todoId)
     }
 
-    updateEditTodoId(todoId) {
-        this.setState({
-            editTodoId: todoId,
-        })
+    let message = ''
+    if (filter === 'completed') {
+        message = 'No todos completed. 😢'
+    } else if (filter === 'active') {
+        message = 'All todos are done! 🥳'
     }
 
-    render() {
-        const { todos, filter, filteredTodos, toggleTodo, deleteTodo, match } = this.props;
+    if (todos.length === 0) {
+        return null;
+    }
 
-
-        console.log("url: ", match)
-
-        let message = ''
-        if (filter === 'completed') {
-            message = 'No todos completed. 😢'
-        } else if (filter === 'active') {
-            message = 'All todos are done! 🥳'
-        }
-
-        if (todos.length === 0) {
-            return null;
-        }
-
-        if (filteredTodos.length === 0) {
-            return (
-                <div className='container todo-row'>
-                    <List bordered>
-                        <List.Item className='empty-list'>
-                            {message}
+    if (filteredTodos.length === 0) {
+        return (
+            <div className='container todo-row'>
+                <List bordered>
+                    <List.Item className='empty-list'>
+                        {message}
+                    </List.Item>
+                </List>
+            </div>
+        )
+    } else {
+        return (
+            <div className='container todo-row'>
+                <List bordered>
+                    {filteredTodos.map((todo) => (
+                        <List.Item key={todo.todoId}>
+                            <TodoItem
+                                updateEditTodoId={updateEditTodoId}
+                                editTodoId={editTodoId}
+                                item={todo}
+                                toggleTodo={toggleTodo}
+                                deleteTodo={deleteTodo}
+                                setFilter={setFilter}
+                            />
                         </List.Item>
-                    </List>
-                </div>
-            )
-        } else {
-            return (
-                <div className='container todo-row'>
-                    <List bordered>
-                        {filteredTodos.map((todo) => (
-                            <List.Item key={todo.todoId}>
-                                <TodoItem
-                                    updateEditTodoId={this.updateEditTodoId}
-                                    editTodoId={this.state.editTodoId}
-                                    item={todo}
-                                    toggleTodo={toggleTodo}
-                                    deleteTodo={deleteTodo}
-                                    setFilter={setFilter}
-                                />
-                            </List.Item>
-                        ))}
-                    </List>
-                </div>
-            )
-        }
+                    ))}
+                </List>
+            </div>
+        )
     }
 }
 
