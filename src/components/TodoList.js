@@ -1,14 +1,18 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { deleteTodo, toggleTodo, setFilter } from '../actions/actionCreators'
+import { useSelector } from 'react-redux'
+// import { deleteTodo, toggleTodo, setFilter } from '../actions/actionCreators'
 import TodoItem from './TodoItem'
 import { List } from 'antd'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
-const TodoList = ({ todos, filter, filteredTodos, toggleTodo, deleteTodo }) => {
+const TodoList = (myProps) => {
+    const { filter } = myProps.match.params
     const [editTodoId, setEditTodoId] = React.useState('')
-
     const updateEditTodoId = todoId => setEditTodoId(todoId)
+    //const filter = useSelector(myProps => myProps.match.params)
+
+    const todos = useSelector(state => state.todos)
+    const filteredTodos = useSelector(state => visibleTodos(state.todos, filter))
 
     let message = ''
     if (filter === 'completed') {
@@ -39,9 +43,9 @@ const TodoList = ({ todos, filter, filteredTodos, toggleTodo, deleteTodo }) => {
                                 updateEditTodoId={updateEditTodoId}
                                 editTodoId={editTodoId}
                                 item={todo}
-                                toggleTodo={toggleTodo}
-                                deleteTodo={deleteTodo}
-                                setFilter={setFilter}
+                            // toggleTodo={() => dispatch(toggleTodo)}
+                            // deleteTodo={() => dispatch(deleteTodo)}
+                            // setFilter={() => dispatch(setFilter)}
                             />
                         </List.Item>
                     ))}
@@ -51,12 +55,14 @@ const TodoList = ({ todos, filter, filteredTodos, toggleTodo, deleteTodo }) => {
     }
 }
 
-TodoList.propTypes = {
-    todos: PropTypes.array.isRequired,
-    filteredTodos: PropTypes.array.isRequired,
-    toggleTodo: PropTypes.func.isRequired,
-    deleteTodo: PropTypes.func.isRequired,
-}
+export default TodoList
+
+// TodoList.propTypes = {
+//     todos: PropTypes.array.isRequired,
+//     filteredTodos: PropTypes.array.isRequired,
+//     toggleTodo: PropTypes.func.isRequired,
+//     deleteTodo: PropTypes.func.isRequired,
+// }
 
 const visibleTodos = (todos, filter) => {
     if (filter === 'completed') {
@@ -68,19 +74,19 @@ const visibleTodos = (todos, filter) => {
     }
 }
 
-const mapStateToProps = (state, myProps) => {
-    const { filter } = myProps.match.params
-    return {
-        todos: state.todos,
-        filteredTodos: visibleTodos(state.todos, filter),
-        filter: filter,
-    }
-}
+// const mapStateToProps = (state, myProps) => {
+//     const { filter } = myProps.match.params
+//     return {
+//         todos: state.todos,
+//         filteredTodos: visibleTodos(state.todos, filter),
+//         filter: filter,
+//     }
+// }
 
-const mapDispatchToProps = {
-    deleteTodo,
-    toggleTodo,
-    setFilter,
-}
+// const mapDispatchToProps = {
+//     deleteTodo,
+//     toggleTodo,
+//     setFilter,
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
+// export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

@@ -1,9 +1,12 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import EditTodo from './EditTodo'
+import { deleteTodo, toggleTodo } from '../actions/actionCreators'
 import { Icon, Checkbox, Typography, Row, Col } from 'antd'
 import PropTypes from 'prop-types'
 
-const TodoItem = ({ item, toggleTodo, deleteTodo, updateEditTodoId, editTodoId }) => {
+const TodoItem = ({ item, updateEditTodoId, editTodoId }) => {
+    const dispatch = useDispatch()
     if (editTodoId === item.todoId) {
         return (
             <EditTodo
@@ -17,7 +20,7 @@ const TodoItem = ({ item, toggleTodo, deleteTodo, updateEditTodoId, editTodoId }
                 <Col span={2}>
                     <Checkbox
                         checked={!item.isActive}
-                        onChange={() => toggleTodo(item.todoId)}
+                        onChange={() => dispatch(toggleTodo(item.todoId))}
                     />
                 </Col>
                 <Col span={21}
@@ -31,7 +34,7 @@ const TodoItem = ({ item, toggleTodo, deleteTodo, updateEditTodoId, editTodoId }
                 </Col>
                 <Col span={1}>
                     <Icon className='delete-btn' type="delete" theme="twoTone" twoToneColor="#ff2f96"
-                        onClick={() => deleteTodo(item.todoId)}
+                        onClick={() => dispatch(deleteTodo(item.todoId))}
                     />
                 </Col>
             </Row>
@@ -42,8 +45,6 @@ const TodoItem = ({ item, toggleTodo, deleteTodo, updateEditTodoId, editTodoId }
 TodoItem.propTypes = {
     item: PropTypes.object.isRequired,
     updateEditTodoId: PropTypes.func.isRequired,
-    toggleTodo: PropTypes.func.isRequired,
-    deleteTodo: PropTypes.func.isRequired,
     editTodoId: PropTypes.string.isRequired,
 }
 

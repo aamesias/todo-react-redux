@@ -1,32 +1,36 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { toggleAll } from '../actions/actionCreators'
 import { Button, Checkbox } from 'antd'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
-const ToggleAllButton = ({ todos, toggleAll }) => {
-    if (todos.length !== 0) {
+const ToggleAllButton = () => {
+    const todos = useSelector(state => state.todos)
+    const dispatch = useDispatch()
+
+    if (todos.length > 0) {
         return (
             <Button className='toggle-all-button'>
                 <Checkbox
                     checked={todos.filter(todo => !todo.isActive).length === todos.length}
-                    onClick={() => toggleAll()}
+                    onClick={() => dispatch(toggleAll())}
                 />
             </Button>
         )
     }
-    else {
-        return null;
-    }
+
+    return null
 }
 
-ToggleAllButton.propTypes = {
-    todos: PropTypes.array.isRequired,
-    toggleAll: PropTypes.func.isRequired,
-}
+export default ToggleAllButton
 
-const mapStateToProps = state => ({ todos: state.todos })
+// ToggleAllButton.propTypes = {
+//     todos: PropTypes.array.isRequired,
+//     toggleAll: PropTypes.func.isRequired,
+// }
 
-const mapDispatchToProps = { toggleAll }
+// const mapStateToProps = state => ({ todos: state.todos })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ToggleAllButton);
+// const mapDispatchToProps = { toggleAll }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(ToggleAllButton);

@@ -1,30 +1,32 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { clearCompleted } from '../actions/actionCreators'
 import { Button } from 'antd'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
-const ClearCompleted = ({ numOfTodosCompleted, clearCompleted }) => {
-    if (numOfTodosCompleted !== 0) {
+const ClearCompleted = () => {
+    const numOfTodosCompleted = useSelector(state => state.todos.filter(todo => !todo.isActive).length)
+    const dispatch = useDispatch()
+    if (numOfTodosCompleted > 0) {
         return (
-            <Button onClick={() => clearCompleted()} >
+            <Button onClick={() => dispatch(clearCompleted())} >
                 <Link to='/all'>Clear Completed</Link>
             </Button>
         )
     }
-    else {
-        return null
-    }
+    return null
 }
 
-ClearCompleted.propTypes = {
-    numOfTodosCompleted: PropTypes.number.isRequired,
-    clearCompleted: PropTypes.func.isRequired,
-}
+export default ClearCompleted
 
-const mapStateToProps = state => ({ numOfTodosCompleted: state.todos.filter(todo => !todo.isActive).length })
+// ClearCompleted.propTypes = {
+//     numOfTodosCompleted: PropTypes.number.isRequired,
+//     clearCompleted: PropTypes.func.isRequired,
+// }
 
-const mapDispatchToProps = { clearCompleted }
+// const mapStateToProps = state => ({ numOfTodosCompleted: state.todos.filter(todo => !todo.isActive).length })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClearCompleted)
+// const mapDispatchToProps = { clearCompleted }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(ClearCompleted)

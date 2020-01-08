@@ -1,16 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Row, Col, Input } from 'antd';
 import { editTodoText, deleteTodo } from '../actions/actionCreators'
 import PropTypes from 'prop-types'
 
-const EditTodo = ({ todo, deleteTodo, editTodoText, updateEditTodoId }) => {
+const EditTodo = ({ todo, updateEditTodoId }) => {
+    const dispatch = useDispatch()
     const [todoText, setTodoText] = React.useState(todo.text)
 
     const updateInput = e => setTodoText(e.target.value)
 
     const handleNewText = () => {
-        (!todoText.trim()) ? deleteTodo(todo.todoId) : editTodoText(todo.todoId, todoText)
+        (!todoText.trim()) ? dispatch(deleteTodo(todo.todoId)) : dispatch(editTodoText(todo.todoId, todoText))
         updateEditTodoId('')
     }
 
@@ -34,13 +35,13 @@ const EditTodo = ({ todo, deleteTodo, editTodoText, updateEditTodoId }) => {
 EditTodo.propTypes = {
     todo: PropTypes.object.isRequired,
     updateEditTodoId: PropTypes.func.isRequired,
-    editTodoText: PropTypes.func.isRequired,
-    deleteTodo: PropTypes.func.isRequired,
+    // editTodoText: PropTypes.func.isRequired,
+    // deleteTodo: PropTypes.func.isRequired,
 }
 
-const mapDispatchToProps = {
-    editTodoText,
-    deleteTodo,
-}
+// const mapDispatchToProps = {
+//     editTodoText,
+//     deleteTodo,
+// }
 
-export default connect(null, mapDispatchToProps)(EditTodo);
+export default EditTodo

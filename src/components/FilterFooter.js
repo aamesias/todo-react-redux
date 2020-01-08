@@ -1,12 +1,14 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Row, Col } from 'antd'
 import NumOfItemsLeft from './NumOfItemsLeft'
 import FilterNav from './FilterNav'
 import ClearCompleted from './ClearCompleted'
 import PropTypes from 'prop-types'
 
-const FilterFooter = ({ match, numOfAllTodos }) => {
+const FilterFooter = ({ match }) => {
+    const numOfAllTodos = useSelector(state => state.todos.length)
+
     const { filter } = match.params
 
     if (numOfAllTodos === 0) return null;
@@ -30,11 +32,13 @@ const FilterFooter = ({ match, numOfAllTodos }) => {
     )
 }
 
+export default FilterFooter
+
 FilterFooter.propTypes = {
     match: PropTypes.object.isRequired,
-    numOfAllTodos: PropTypes.number.isRequired
+    // numOfAllTodos: PropTypes.number.isRequired
 }
 
-const mapStateToProps = state => ({ numOfAllTodos: state.todos.length })
+// const mapStateToProps = state => ({ numOfAllTodos: state.todos.length })
 
-export default connect(mapStateToProps)(FilterFooter)
+// export default connect(mapStateToProps)(FilterFooter)

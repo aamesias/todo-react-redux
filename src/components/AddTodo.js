@@ -1,17 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Input } from 'antd';
 import { addTodo } from '../actions/actionCreators'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
-const AddTodo = ({ addTodo }) => {
+const AddTodo = () => {
     const [input, setInput] = React.useState('')
-
     const updateInput = e => setInput(e.target.value)
+
+    const dispatch = useDispatch()
 
     const handleAddTodo = e => {
         if (e.key === 'Enter') {
-            addTodo(input)
+            dispatch(addTodo(input))
             setInput('')
         }
     }
@@ -27,8 +28,10 @@ const AddTodo = ({ addTodo }) => {
     )
 }
 
-AddTodo.propTypes = { addTodo: PropTypes.func.isRequired }
+export default AddTodo
 
-const mapDispatchToProps = { addTodo }
+// AddTodo.propTypes = { addTodo: PropTypes.func.isRequired }
 
-export default connect(null, mapDispatchToProps)(AddTodo);
+// const mapDispatchToProps = { addTodo }
+
+// export default connect(null, mapDispatchToProps)(AddTodo);
